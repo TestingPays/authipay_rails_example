@@ -13,3 +13,29 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  font-family: "Numbers Greenback A", "Numbers Greenback B", "Gotham SSm A", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #4A4A4A;
+  background-color: #FEFEFE;
+  padding-bottom: 120px;
+  min-height: 100vh;
+}
+.tp-navbar {
+  padding: 15px;
+  background-color: #3A3D3D;
+  border-color: #3A3D3D;
+  border-radius: 0;
+}
+pre {
+  padding: 15px;
+  max-width: 100%;
+  background-color: #e9ecef;
+  border-radius: .3rem;
+}
+
+.jumbotron {
+  padding: 1rem !important;
+}
