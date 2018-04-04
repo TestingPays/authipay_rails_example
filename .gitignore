@@ -24,3 +24,6 @@
 
 # Ignore cert files
 /lib/certs/*
+
+# Ignore env variables
+.env
