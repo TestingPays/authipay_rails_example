@@ -3,7 +3,7 @@ require 'net/http'
 
 module Sale
   def new_request(sale)
-    request = Net::HTTP::Post.new("/ipgapi/services")
+    request = Net::HTTP::Post.new(endpoint)
 
     request.basic_auth ENV["USERNAME"], ENV["PASSWORD"]
     request.content_type = "text/xml"
@@ -54,17 +54,36 @@ private
   end
 
   def default_options
-    {
-      use_ssl: true,
-      verify_mode: OpenSSL::SSL::VERIFY_PEER,
-      keep_alive_timeout: 30,
-      cert: cert,
-      key: key
-    }
+    if Rails.env.production?
+      return {
+        use_ssl: true,
+        verify_mode: OpenSSL::SSL::VERIFY_PEER,
+        keep_alive_timeout: 30,
+        cert: cert,
+        key: key
+      }
+    else
+      return {
+        use_ssl: true,
+        verify_mode: OpenSSL::SSL::VERIFY_PEER,
+      }
+    end
   end
 
   def uri
-    URI.parse("https://test.ipg-online.com")
+    if Rails.env.production?
+      return URI.parse("https://test.ipg-online.com")
+    else
+      return URI.parse("https://api.testingpays.com")
+    end
+  end
+
+  def endpoint
+    if Rails.env.production?
+      return "/ipgapi/services"
+    else
+      return "/#{ENV["API_KEY"]}/authipay/v1/ipgapi/services"
+    end
   end
 
   def cert
